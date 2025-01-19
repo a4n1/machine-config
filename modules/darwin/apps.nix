@@ -7,6 +7,7 @@
     tmux
     tree
     defaultbrowser
+    gnupg
   ];
 
   homebrew = {

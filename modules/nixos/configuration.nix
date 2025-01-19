@@ -79,6 +79,7 @@
     tmux
     tree
     gnumake
+    gnupg
   ];
 
   programs.niri.enable = true;

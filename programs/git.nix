@@ -17,9 +17,10 @@
 
     extraConfig = {
       init.defaultBranch = "master";
+      commit.gpgsign = true;
+      commit.verbose = true;
       push.autoSetupRemote = true;
       pull.rebase = true;
-      commit.verbose = true;
       column = {
         ui = "auto dense";
         status = "never";
