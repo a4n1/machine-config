@@ -1,0 +1,63 @@
+{ ...}: {
+  home.file.".blerc" = {
+    text = ''
+      bleopt keymap_vi_mode_show:=
+      ble-bind -m vi_nmap --cursor 2
+      ble-bind -m vi_imap --cursor 5
+      ble-bind -m vi_omap --cursor 4
+      ble-bind -m vi_xmap --cursor 2
+      ble-bind -m vi_cmap --cursor 0
+      ble-face -s argument_error 'bg=#f38ba8,fg=#11111b'
+      ble-face -s argument_option 'fg=#f2cdcd,italic'
+      ble-face -s auto_complete 'fg=#45475a,italic'
+      ble-face -s cmdinfo_cd_cdpath 'fg=#89b4fa,bg=#11111b,italic'
+      ble-face -s command_alias 'fg=#74c7ec'
+      ble-face -s command_builtin 'fg=#fab387'
+      ble-face -s command_directory 'fg=#89b4fa'
+      ble-face -s command_file 'fg=#74c7ec'
+      ble-face -s command_function 'fg=#74c7ec'
+      ble-face -s command_keyword 'fg=#cba6f7'
+      ble-face -s disabled 'fg=#313244'
+      ble-face -s filename_directory 'fg=#89b4fa'
+      ble-face -s filename_directory_sticky 'fg=#11111b,bg=#a6e3a1'
+      ble-face -s filename_executable 'fg=#a6e3a1,bold'
+      ble-face -s filename_ls_colors 'none'
+      ble-face -s filename_orphan 'fg=#89dceb,bold'
+      ble-face -s filename_other 'none'
+      ble-face -s filename_setgid 'fg=#11111b,bg=#f9e2af,underline'
+      ble-face -s filename_setuid 'fg=#11111b,bg=#fab387,underline'
+      ble-face -s overwrite_mode 'fg=#11111b,bg=#89dceb'
+      ble-face -s prompt_status_line 'bg=#9399b2'
+      ble-face -s region 'bg=#45475a'
+      ble-face -s region_insert 'bg=#45475a'
+      ble-face -s region_match 'fg=#11111b,bg=#f9e2af'
+      ble-face -s region_target 'fg=#11111b,bg=#cba6f7'
+      ble-face -s syntax_brace 'fg=#6c7086'
+      ble-face -s syntax_command 'fg=#74c7ec'
+      ble-face -s syntax_comment 'fg=#f9e2af'
+      ble-face -s syntax_delimiter 'fg=#6c7086'
+      ble-face -s syntax_document 'fg=#f5e0dc,bold'
+      ble-face -s syntax_document_begin 'fg=#f5e0dc,bold'
+      ble-face -s syntax_error 'bg=#f38ba8,fg=#11111b'
+      ble-face -s syntax_escape 'fg=#f2cdcd'
+      ble-face -s syntax_expr 'fg=#cba6f7'
+      ble-face -s syntax_function_name 'fg=#b4befe'
+      ble-face -s syntax_glob 'fg=#fab387'
+      ble-face -s syntax_history_expansion 'fg=#b4befe,italic'
+      ble-face -s syntax_param_expansion 'fg=#f38ba8'
+      ble-face -s syntax_quotation 'fg=#a6e3a1'
+      ble-face -s syntax_tilde 'fg=#cba6f7'
+      ble-face -s syntax_varname 'fg=#f5e0dc'
+      ble-face -s varname_array 'fg=#fab387'
+      ble-face -s varname_empty 'fg=#fab387'
+      ble-face -s varname_export 'fg=#fab387'
+      ble-face -s varname_expr 'fg=#fab387'
+      ble-face -s varname_hash 'fg=#fab387'
+      ble-face -s varname_number 'fg=#f5e0dc'
+      ble-face -s varname_readonly 'fg=#fab387'
+      ble-face -s varname_transform 'fg=#fab387'
+      ble-face -s varname_unset 'bg=#f38ba8,fg=#11111b'
+      ble-face -s vbell_erase 'bg=#45475a'
+    '';
+  };
+}

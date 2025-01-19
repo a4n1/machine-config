@@ -1,0 +1,105 @@
+input {
+    keyboard {
+        xkb {
+            layout "gb"
+        }
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+    }
+}
+
+output "Virtual-1" {
+    mode "3072x1920"
+    scale 1.75 
+}
+
+layout {
+    gaps 24
+    center-focused-column "always"
+    preset-column-widths {
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+
+    default-column-width { proportion 0.66667; }
+
+    focus-ring {
+        off
+    }
+
+    border {
+        off
+    }
+
+    struts {
+        left 24
+        right 24
+    }
+}
+
+spawn-at-startup "swaybg" "-i" "/home/vm/.config/nix/wallpaper.png" "-m" "fill"
+
+screenshot-path "~/pictures/screenshots/%Y-%m-%d-%H-%M-%S-screenshot.png"
+
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+}
+
+cursor {
+    xcursor-theme "Capitaine Cursors"
+    xcursor-size 32
+}
+
+binds {
+    Alt+Shift+Slash { show-hotkey-overlay; }
+    Alt+Return { spawn "ghostty"; }
+    Alt+Space { spawn "firefox"; }
+
+    Alt+Q { close-window; }
+
+    Alt+Left  { focus-column-left; }
+    Alt+Right { focus-column-right; }
+    Alt+H     { focus-column-left; }
+    Alt+L     { focus-column-right; }
+    Alt+J     { focus-workspace-down; }
+    Alt+K     { focus-workspace-up; }
+
+    Alt+Shift+Left  { move-column-left; }
+    Alt+Shift+Down  { move-window-down; }
+    Alt+Shift+Up    { move-window-up; }
+    Alt+Shift+Right { move-column-right; }
+    Alt+Shift+H     { move-column-left; }
+    Alt+Shift+J     { move-window-down; }
+    Alt+Shift+K     { move-window-up; }
+    Alt+Shift+L     { move-column-right; }
+
+    Alt+WheelScrollRight      { focus-column-right; }
+    Mod+WheelScrollLeft       { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    Mod+Shift+WheelScrollDown      { focus-column-right; }
+    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    Alt+R { switch-preset-column-width; }
+    Alt+Ctrl+R { reset-window-height; }
+    Alt+F { maximize-column; }
+
+    Alt+Minus { set-column-width "-10%"; }
+    Alt+Equal { set-column-width "+10%"; }
+    Alt+Shift+Minus { set-window-height "-10%"; }
+    Alt+Shift+Equal { set-window-height "+10%"; }
+
+    Print { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+
+    Ctrl+Alt+Delete { quit; }
+}
