@@ -43,7 +43,7 @@
     };
 
     vault = {
-      username = "agniilango";
+      username = "agni";
       system = "aarch64-darwin";
       hostname = "vault";
     };
