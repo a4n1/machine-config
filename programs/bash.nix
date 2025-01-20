@@ -19,7 +19,7 @@
       gs = "git status --short";
 
       nd = "nix develop";
-      ndd = "nix develop path=$(cwd)";
+      ndd = "nix develop path:$(pwd)";
 
       vim = "nvim";
     };
