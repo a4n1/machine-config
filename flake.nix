@@ -43,7 +43,7 @@
     };
 
     vault = {
-      username = "agni";
+      username = "agniilango";
       system = "aarch64-darwin";
       hostname = "vault";
     };
@@ -52,9 +52,9 @@
       system = vyas.system;
       specialArgs = { inherit inputs; system = vyas; };
       modules = [
+        ./hosts/vyas
         ./modules/nix-core.nix
         ./modules/darwin/system.nix
-        ./modules/darwin/apps.nix
         ./modules/darwin/host-users.nix
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
@@ -87,9 +87,9 @@
       system = vault.system;
       specialArgs = { inherit inputs; system = vault; };
       modules = [
+        ./hosts/vault
         ./modules/nix-core.nix
         ./modules/darwin/system.nix
-        ./modules/darwin/apps.nix
         ./modules/darwin/host-users.nix
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
