@@ -16,7 +16,10 @@
       gpf = "git push --force-with-lease";
       gl = "git log -p --abbrev-commit --pretty=medium";
       glo = "git log --pretty=oneline --abbrev-commit";
-      gst = "git status --short";
+      gs = "git status --short";
+
+      nd = "nix develop";
+      ndd = "nix develop path=$(cwd)";
 
       vim = "nvim";
     };
