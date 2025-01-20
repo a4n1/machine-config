@@ -9,11 +9,6 @@
         autohide = true;
         show-recents = false;
         mru-spaces = false;
-        persistent-apps = [
-          "/System/Applications/System Settings.app"
-          "/Applications/Firefox.app"
-          "/Applications/Ghostty.app"
-        ];
         persistent-others = [];
       };
 

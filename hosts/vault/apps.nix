@@ -33,4 +33,14 @@
       "1password"
     ];
   };
+
+  system.defaults.dock = {
+    persistent-apps = [
+      "/System/Applications/System Settings.app"
+      "/Applications/1Password.app"
+      "/Applications/Slack.app"
+      "/Applications/Firefox.app"
+      "/Applications/Ghostty.app"
+    ];
+  };
 }

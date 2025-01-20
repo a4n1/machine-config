@@ -31,4 +31,12 @@
       "vmware-fusion"
     ];
   };
+
+  system.defaults.dock = {
+    persistent-apps = [
+      "/System/Applications/System Settings.app"
+      "/Applications/Firefox.app"
+      "/Applications/Ghostty.app"
+    ];
+  };
 }
