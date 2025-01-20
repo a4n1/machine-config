@@ -10,6 +10,8 @@
     ripgrep
     gnupg
     defaultbrowser
+    lima
+    docker
   ];
 
   homebrew = {

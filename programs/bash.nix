@@ -51,6 +51,8 @@
       else
         export PS1="\n$ "  
       fi
+
+      export DOCKER_HOST=$(limactl list default --format 'unix://{{.Dir}}/sock/docker.sock')
     '';
   };
 }
