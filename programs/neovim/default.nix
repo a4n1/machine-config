@@ -13,14 +13,11 @@
       cmp-path
       cmp-cmdline
       vim-surround
-      vim-unimpaired
-      vim-repeat
       vim-fugitive
       rust-vim
       vim-nix
       tabular
       fzf-vim
-      leap-nvim
     ];
   };
 }

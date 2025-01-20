@@ -34,6 +34,10 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   command = "silent! !chmod 644 <afile>",
 })
 
+vim.api.nvim_set_keymap('n', '<Tab>', ':Buffers<CR>', { noremap = true, silent = true });
+vim.api.nvim_set_keymap('n', '<Leader>s', ':GFiles<CR>', { noremap = true, silent = true });
+vim.api.nvim_set_keymap('n', '<Leader>S', ':Files<CR>', { noremap = true, silent = true });
+
 require('catppuccin').setup({
     flavour = 'mocha',
     transparent_background = true,
@@ -59,6 +63,31 @@ require('lspconfig').rust_analyzer.setup({
       },
     },
    },
+})
+
+require'lspconfig'.ts_ls.setup({})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',
+  callback = function()
+    local bufmap = function(mode, lhs, rhs)
+      local opts = {buffer = true}
+      vim.keymap.set(mode, lhs, rhs, opts)
+    end
+
+    bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.hover()<cr>')
+    bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+    bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+    bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+    bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+    bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+    bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+    bufmap('n', '<C-r>', '<cmd>lua vim.lsp.buf.rename()<cr>')
+    bufmap('n', '<C-F>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
+    bufmap('n', '<C-A>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+    bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+    bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+  end
 })
 
 require('cmp').setup {
