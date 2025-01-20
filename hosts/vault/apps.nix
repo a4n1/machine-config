@@ -6,8 +6,10 @@
     neovim
     tmux
     tree
-    defaultbrowser
+    gawk
+    ripgrep
     gnupg
+    defaultbrowser
   ];
 
   homebrew = {

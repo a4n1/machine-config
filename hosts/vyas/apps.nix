@@ -6,6 +6,8 @@
     neovim
     tmux
     tree
+    gawk
+    ripgrep
     defaultbrowser
     gnupg
   ];
