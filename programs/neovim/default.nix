@@ -1,4 +1,4 @@
-{ config, pkgs, self, ...}: {
+{ pkgs, ...}: {
   programs.neovim = {
     enable = true;
     extraLuaConfig = builtins.readFile ./init.lua;
@@ -12,12 +12,17 @@
       cmp-buffer
       cmp-path
       cmp-cmdline
+      copilot-lua
+      copilot-cmp
       vim-surround
+      vim-commentary
       vim-fugitive
+      gitsigns-nvim
       rust-vim
       vim-nix
       tabular
       fzf-vim
+      neoformat
     ];
   };
 }
