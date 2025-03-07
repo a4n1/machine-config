@@ -12,6 +12,11 @@
     defaultbrowser
     lima
     docker
+    docker-compose
+    mkcert
+    nssTools
+    fzf
+    nixd
   ];
 
   homebrew = {
@@ -35,6 +40,7 @@
       "vmware-fusion"
       "slack"
       "1password"
+      "google-chrome"
     ];
   };
 
