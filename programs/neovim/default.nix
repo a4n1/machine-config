@@ -14,9 +14,7 @@
       cmp-cmdline
       copilot-lua
       copilot-cmp
-      vim-surround
       vim-commentary
-      vim-fugitive
       gitsigns-nvim
       rust-vim
       vim-nix
