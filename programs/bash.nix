@@ -11,13 +11,20 @@
       tree = "tree -C";
 
       gc = "git commit --verbose";
+      gca = "git commit --amend";
       gd = "git diff --minimal";
-      gdc = "gif diff --cached";
-      gp = "git push";
+      gdc = "git diff --cached";
+      gp = "git pull";
+      gpu = "git push";
       gpf = "git push --force-with-lease";
       gl = "git log -p --abbrev-commit --pretty=medium";
       glo = "git log --pretty=oneline --abbrev-commit";
       gs = "git status --short";
+      gss = "git status";
+      gr = "git rebase";
+      gco = "git checkout";
+
+      nd = "nix develop path:$(pwd)/nix";
 
       vim = "nvim";
     };
@@ -51,18 +58,11 @@
         export PS1="\n$ "  
       fi
 
-      d() {
-        if [ ! -d "./nix" ]; then
-          echo "Error: ./nix directory does not exist."
-          return 1
-        fi
-
-        dir_name=$(basename "$PWD")
-        
+      t() {
         if tmux has-session -t "$dir_name" 2>/dev/null; then
           tmux attach-session -t "$dir_name"
         else
-          nix develop path:$(pwd)/nix --command tmux new -s "$dir_name" $SHELL         
+          tmux new -s "$dir_name" $SHELL         
         fi
       }
 
@@ -75,21 +75,6 @@
           if [ -n "$session" ]; then
             tmux attach-session -t "$session"
           fi
-        fi
-      }
-
-      tg() {
-        if [ -z "$1" ]
-          then
-            session_name=$(basename "$PWD")
-          else
-            session_name="$1"
-        fi
-
-        if tmux has-session -t "$session_name" 2>/dev/null; then
-          tmux attach -t "$session_name"
-        else
-          tmux new -s "$session_name" $SHELL
         fi
       }
     '';
