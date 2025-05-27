@@ -42,6 +42,7 @@
       "1password"
       "google-chrome"
       "cursor"
+      "kicad"
     ];
   };
 
