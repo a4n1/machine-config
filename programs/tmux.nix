@@ -1,4 +1,4 @@
-{ config, pkgs, ...}: {
+{ config, ...}: {
   programs.tmux = {
     enable = true;
     prefix = "C-a";
@@ -31,7 +31,7 @@
       set-option -g status-position bottom
       set -g status-left-length 80
       set -g status-left '#[fg=color15]#(cd #{pane_current_path} && git rev-parse --abbrev-ref HEAD 4>/dev/null)'
-      set -g status-right ""
+      set -g status-right '#[fg=colour15]#S'
  
       set -g window-status-current-format " #[fg=colour15]#W#{?window_zoomed_flag, #[fg=colour2]+,}#{?window_activity_flag, #[fg=colour3]!,}"
       set -g window-status-format " #[fg=colour8]#W#{?window_zoomed_flag, #[fg=colour2]+,}"
