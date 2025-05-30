@@ -74,9 +74,7 @@
     };
   };
 
-  services.nix-daemon.enable = true;
-
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   programs.zsh.enable = true;
 
@@ -92,13 +90,18 @@
     '';
   };
 
-  system.activationScripts.postUserActivation.text = ''
-    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u;
+  system.activationScripts.setupLaunchAgents = {
+    enable = true;
+    text = ''
+      #!/usr/bin/env bash
 
-    if [[ $SHELL != *bash* ]]; then
-      chsh -s /run/current-system/sw/bin/bash;
-    fi
+      sudo /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u;
 
-    defaultbrowser firefox;
-  '';
+      if [[ $SHELL != *bash* ]]; then
+        sudo chsh -s /run/current-system/sw/bin/bash;
+      fi
+
+      sudo defaultbrowser firefox;
+    '';
+  };
 }

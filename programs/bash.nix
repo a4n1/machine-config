@@ -59,6 +59,8 @@
       fi
 
       t() {
+        local dir_name="$(basename "$PWD")"
+
         if tmux has-session -t "$dir_name" 2>/dev/null; then
           tmux attach-session -t "$dir_name"
         else

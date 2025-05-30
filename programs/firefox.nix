@@ -41,7 +41,7 @@
         user_pref("extensions.enabledScopes", 15);
       '';
 
-      extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+      extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
       ];
     };

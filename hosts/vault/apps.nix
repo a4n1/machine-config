@@ -17,6 +17,8 @@
     nssTools
     fzf
     nixd
+    luaformatter
+    lua-language-server
   ];
 
   homebrew = {
