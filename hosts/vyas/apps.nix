@@ -11,6 +11,8 @@
     defaultbrowser
     gnupg
     nixd
+    luaformatter
+    lua-language-server
   ];
 
   homebrew = {

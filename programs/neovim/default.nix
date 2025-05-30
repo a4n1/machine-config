@@ -7,19 +7,14 @@
       nvim-lspconfig
       nvim-treesitter.withAllGrammars
       playground
-      nvim-cmp
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
-      copilot-lua
-      copilot-cmp
+      blink-cmp
+      tiny-inline-diagnostic-nvim
+      fzf-lua
       vim-commentary
       gitsigns-nvim
       rust-vim
       vim-nix
       tabular
-      fzf-vim
       neoformat
     ];
   };
