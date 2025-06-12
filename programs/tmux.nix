@@ -1,8 +1,12 @@
-{ config, ...}: {
+{ pkgs, ...}: {
   programs.tmux = {
     enable = true;
     prefix = "C-a";
     keyMode = "vi";
+    plugins = with pkgs; [
+      tmuxPlugins.continuum
+      tmuxPlugins.resurrect
+    ];
     extraConfig = ''
       bind-key r source-file ~/.config/tmux/tmux.conf
 
@@ -43,6 +47,9 @@
           set -g "status-format[0]" ""
           set -g status 2
       }
+
+      run-shell ${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
+      run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
     '';
   };
 }
