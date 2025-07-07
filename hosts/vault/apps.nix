@@ -3,6 +3,7 @@
     bashInteractive
     blesh
     git
+    jujutsu
     neovim
     tmux
     tree
@@ -16,6 +17,7 @@
     mkcert
     nssTools
     fzf
+    claude-code
     nixd
     luaformatter
     lua-language-server

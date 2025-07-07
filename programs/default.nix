@@ -1,10 +1,9 @@
-{ system, ... }:
-
-{
+{ system, ... }: {
   imports = [
     ./bash.nix
     ./blesh.nix
     ./git.nix
+    ./jujutsu.nix
     ./tmux.nix
     ./neovim
     ./ghostty.nix

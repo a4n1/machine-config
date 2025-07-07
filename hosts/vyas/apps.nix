@@ -3,13 +3,17 @@
     bashInteractive
     blesh
     git
+    jujutsu
     neovim
     tmux
     tree
     gawk
     ripgrep
+    gnupg
     defaultbrowser
     gnupg
+    fzf
+    claude-code
     nixd
     luaformatter
     lua-language-server
