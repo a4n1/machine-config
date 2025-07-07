@@ -47,6 +47,7 @@
       "google-chrome"
       "cursor"
       "kicad"
+      "android-studio"
     ];
   };
 
