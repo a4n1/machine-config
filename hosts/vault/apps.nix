@@ -21,6 +21,7 @@
     nixd
     luaformatter
     lua-language-server
+    wireguard-tools
   ];
 
   homebrew = {
