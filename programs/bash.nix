@@ -10,19 +10,13 @@
       ls = "ls --color=auto";
       tree = "tree -C";
 
-      gc = "git commit --verbose";
-      gca = "git commit --amend";
-      gd = "git diff --minimal";
-      gdc = "git diff --cached";
-      gp = "git pull";
-      gpu = "git push";
-      gpf = "git push --force-with-lease";
-      gl = "git log -p --abbrev-commit --pretty=medium";
-      glo = "git log --pretty=oneline --abbrev-commit";
-      gs = "git status --short";
-      gss = "git status";
-      gr = "git rebase";
-      gco = "git checkout";
+      jc = "jj commit";
+      js = "jj status";
+      jd = "jj diff";
+      jm = "jj desc";
+      jt = "jj bookmark move --from \"heads(::@- & bookmarks())\" --to @-";
+      ju = "jj undo";
+      jl = "jj log -p";
 
       nd = "nix develop path:$(pwd)/nix";
 
@@ -77,6 +71,14 @@
           if [ -n "$session" ]; then
             tmux attach-session -t "$session"
           fi
+        fi
+      }
+
+      jdr() {
+        if [ -z "$1" ]; then
+          jj diff -r @-
+        else
+          jj diff -r "$1"
         fi
       }
     '';

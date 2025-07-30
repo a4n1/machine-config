@@ -11,6 +11,8 @@
         default-command = "log";
         graph.style = "curved";
         should-sign-off = true;
+        diff-formatter = ":git";
+        pager = "delta";
       };
 
       signing = {
@@ -22,6 +24,10 @@
       git = {
         sign-on-push = true;
         write-change-id-header = true;
+      };
+
+      template-aliases = {
+        "format_timestamp(timestamp)" = "timestamp.ago()";
       };
 
       templates = {
