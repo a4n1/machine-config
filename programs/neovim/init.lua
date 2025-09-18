@@ -64,7 +64,7 @@ fzfLua.setup({
     col = 0.5,
     preview = {scrollbar = false}
   },
-  fzf_opts = {['--layout'] = 'reverse-list'}
+  fzf_opts = {['--layout'] = 'reverse'}
 })
 
 vim.keymap
