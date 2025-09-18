@@ -11,12 +11,13 @@
       tree = "tree -C";
 
       jc = "jj commit";
-      js = "jj status";
+      jf = "jj git fetch";
+      js = "jj squash";
       jd = "jj diff";
-      jm = "jj desc";
       jt = "jj bookmark move --from \"heads(::@- & bookmarks())\" --to @-";
       ju = "jj undo";
       jl = "jj log -p";
+      jp = "jj git push";
 
       nd = "nix develop path:$(pwd)/nix";
 
@@ -79,6 +80,16 @@
           jj diff -r @-
         else
           jj diff -r "$1"
+        fi
+      }
+
+      jr() {
+        if [ $# -eq 1 ]; then
+          jj rebase -b @ -d "$1"
+        elif [ $# -eq 2 ]; then
+          jj rebase -b "$1" -d "$2"
+        else
+          echo "Usage jr <base> <dest>"
         fi
       }
     '';
