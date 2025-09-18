@@ -59,6 +59,7 @@
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
           home-manager.extraSpecialArgs = { inherit inputs; system = vyas; };
           home-manager.users.${vyas.username} = import ./hosts/vyas/home.nix;
         }
@@ -77,6 +78,7 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
           home-manager.extraSpecialArgs = { inherit inputs; system = vyas.vm; };
           home-manager.users.${vyas.vm.username} = import ./hosts/vyas/vm/home.nix;
         }
@@ -94,6 +96,7 @@
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
           home-manager.extraSpecialArgs = { inherit inputs; system = vault; };
           home-manager.users.${vault.username} = import ./hosts/vault/home.nix;
         }

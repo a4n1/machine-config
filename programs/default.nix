@@ -8,6 +8,7 @@
     ./neovim
     ./ghostty.nix
     ./firefox.nix
+    ./atuin.nix
   ];
 
   home = {
