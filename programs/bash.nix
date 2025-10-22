@@ -18,6 +18,8 @@
       ju = "jj undo";
       jl = "jj log -p";
       jp = "jj git push";
+      jn = "jj new";
+      je = "jj edit";
 
       nd = "nix develop path:$(pwd)/nix";
 
