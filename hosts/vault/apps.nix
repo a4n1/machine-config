@@ -49,6 +49,7 @@
       "cursor"
       "kicad"
       "android-studio"
+      "blender"
     ];
   };
 
