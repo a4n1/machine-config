@@ -1,9 +1,4 @@
-{
-  lib,
-  username,
-  useremail,
-  ...
-}: {
+{ lib, ... }: {
   home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
     rm -f ~/.gitconfig
   '';

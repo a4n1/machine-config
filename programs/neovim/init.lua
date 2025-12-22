@@ -66,6 +66,7 @@ fzfLua.setup({
   },
   fzf_opts = {['--layout'] = 'reverse'}
 })
+fzfLua.register_ui_select()
 
 vim.keymap
     .set('n', '<Leader>b', fzfLua.buffers, {noremap = true, silent = true})
@@ -98,7 +99,8 @@ require('lspconfig').rust_analyzer.setup({
   settings = {
     ['rust-analyzer'] = {
       cargo = {allFeatures = true},
-      checkOnSave = {command = 'clippy'}
+      ["rust-analyzer"] = {checkOnSave = true, check = {command = "clippy"}},
+      targetDir = vim.fn.stdpath("cache") .. "/rust-analyzer-target"
     }
   }
 })
@@ -147,6 +149,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function() vim.lsp.stop_client(vim.lsp.get_active_clients()) end
+})
+
 require('blink.cmp').setup({
   keymap = {preset = 'super-tab'},
   sources = {default = {'lsp', 'path', 'snippets', 'buffer'}}
@@ -160,13 +166,13 @@ vim.g.neoformat_lua_lua_format = {
   stdin = true
 }
 vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '*.js,*.ts,*.jsx,*.tsx,*.json,*.lua',
+  pattern = {"*.js", "*.ts", "*.jsx", "*.tsx", "*.json", "*.lua"},
   command = 'Neoformat'
 })
 
 local gitsigns = require('gitsigns')
 
-gitsigns.setup()
+gitsigns.setup({auto_attach = true})
 vim.keymap.set({'n', 'v'}, '<leader>gs', gitsigns.stage_hunk)
 vim.keymap.set({'n', 'v'}, '<leader>gu', gitsigns.undo_stage_hunk)
 vim.keymap.set({'n', 'v'}, '<leader>gr', gitsigns.reset_hunk)
