@@ -22,6 +22,8 @@
     luaformatter
     lua-language-server
     wireguard-tools
+    htop
+    prettier
   ];
 
   homebrew = {
