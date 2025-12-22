@@ -6,7 +6,6 @@
       catppuccin-nvim
       nvim-lspconfig
       nvim-treesitter.withAllGrammars
-      playground
       blink-cmp
       tiny-inline-diagnostic-nvim
       fzf-lua
