@@ -89,24 +89,27 @@ vim.cmd.colorscheme('catppuccin')
 
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-require('lspconfig').lua_ls.setup({
+vim.lsp.config.lua_ls = {
   capabilities = capabilities,
   settings = {Lua = {diagnostics = {globals = {'vim'}}}}
-})
+}
+vim.lsp.enable('lua_ls')
 
-require('lspconfig').rust_analyzer.setup({
+vim.lsp.config.rust_analyzer = {
   capabilities = capabilities,
   settings = {
     ['rust-analyzer'] = {
       cargo = {allFeatures = true},
-      ["rust-analyzer"] = {checkOnSave = true, check = {command = "clippy"}},
+      checkOnSave = {command = "clippy"},
       targetDir = vim.fn.stdpath("cache") .. "/rust-analyzer-target"
     }
   }
-})
+}
+vim.lsp.enable('rust_analyzer')
 
-require('lspconfig').ts_ls.setup({
+vim.lsp.config.ts_ls = {
   capabilities = capabilities,
+
   on_attach = function(client, bufnr)
     local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
 
@@ -114,13 +117,19 @@ require('lspconfig').ts_ls.setup({
       client.config.init_options = client.config.init_options or {}
       client.config.init_options.preferences =
           client.config.init_options.preferences or {}
-      client.config.init_options.preferences['checkJs'] = false
+      client.config.init_options.preferences.checkJs = false
     end
   end,
-  init_options = {preferences = {checkJs = false}}
-})
 
-require('lspconfig').nixd.setup({capabilities = capabilities})
+  init_options = {preferences = {checkJs = false}}
+}
+vim.lsp.enable('ts_ls')
+
+vim.lsp.config.nixd = {capabilities = capabilities}
+vim.lsp.enable('nixd')
+
+vim.lsp.config.gopls = {capabilities = capabilities}
+vim.lsp.enable('gopls')
 
 require('tiny-inline-diagnostic').setup({
   preset = 'classic',
@@ -168,6 +177,11 @@ vim.g.neoformat_lua_lua_format = {
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = {"*.js", "*.ts", "*.jsx", "*.tsx", "*.json", "*.lua"},
   command = 'Neoformat'
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function() vim.lsp.buf.format({async = false}) end
 })
 
 local gitsigns = require('gitsigns')
