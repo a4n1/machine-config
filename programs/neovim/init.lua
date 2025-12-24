@@ -73,7 +73,8 @@ vim.keymap
 vim.keymap.set('n', '<Leader>f', fzfLua.git_files,
                {noremap = true, silent = true})
 vim.keymap.set('n', '<Leader>F', fzfLua.files, {noremap = true, silent = true})
-vim.keymap.set('n', '<C-f>', fzfLua.live_grep_resume,
+vim.keymap.set('n', '<C-f>',
+               function() require('fzf-lua').live_grep({resume = true}) end,
                {noremap = true, silent = true})
 
 require('catppuccin').setup({
@@ -99,9 +100,9 @@ vim.lsp.config.rust_analyzer = {
   capabilities = capabilities,
   settings = {
     ['rust-analyzer'] = {
-      cargo = {allFeatures = true},
-      checkOnSave = {command = "clippy"},
-      targetDir = vim.fn.stdpath("cache") .. "/rust-analyzer-target"
+      cargo = {allFeatures = true, targetDir = "target/rust-analyzer"},
+      checkOnSave = true,
+      check = {command = "clippy"}
     }
   }
 }
