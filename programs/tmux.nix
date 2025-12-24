@@ -1,14 +1,10 @@
-{ pkgs, ...}: {
+{ ...}: {
   programs.tmux = {
     enable = true;
     prefix = "C-a";
     keyMode = "vi";
-    plugins = with pkgs; [
-      tmuxPlugins.continuum
-      tmuxPlugins.resurrect
-    ];
     extraConfig = ''
-      bind-key r source-file ~/.config/tmux/tmux.conf
+      bind r source-file ~/.config/tmux/tmux.conf
 
       set escape-time 20
       set -g mouse on
@@ -19,22 +15,21 @@
 
       set-option -g default-terminal xterm-256color
 
-      bind-key -r h previous-window
-      bind-key -r l next-window 
-      bind-key 9 swap-window -t -1
-      bind-key 9 swap-window -t -1
-      bind-key 0 swap-window -t +1
-      bind-key -r "," swap-window -d -t -1
-      bind-key -r "." swap-window -d -t +1
-      bind [ switch-client -n
-      bind ] switch-client -p
+      bind -r h previous-window
+      bind -r l next-window 
+      bind -r "," swap-window -d -t -1
+      bind -r "." swap-window -d -t +1
+      bind -r o select-pane -t :.+
+      bind -r O select-pane -t :.-
+      bind v split-window -v
+      bind S split-window -h
       bind s split-window -v "tmux list-sessions -F '#{session_name}' | fzf | xargs -I {} tmux switch-client -t {}"
       bind c new-window '/run/current-system/sw/bin/bash'
  
       set-option -g status-justify absolute-centre
       set-option -g status-position bottom
-      set -g status-left-length 80
-      set -g status-left '#[fg=color15]#(cd #{pane_current_path} && git rev-parse --abbrev-ref HEAD 4>/dev/null)'
+      set -g status-left ""
+      set -g status-left-length 0
       set -g status-right '#[fg=colour15]#S'
  
       set -g window-status-current-format " #[fg=colour15]#W#{?window_zoomed_flag, #[fg=colour2]+,}#{?window_activity_flag, #[fg=colour3]!,}"
@@ -47,9 +42,6 @@
           set -g "status-format[0]" ""
           set -g status 2
       }
-
-      run-shell ${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
-      run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
     '';
   };
 }
