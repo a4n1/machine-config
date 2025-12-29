@@ -34,6 +34,17 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+require('catppuccin').setup({
+  flavour = 'mocha',
+  transparent_background = true,
+  show_end_of_buffer = false,
+  term_colors = false,
+  default_integrations = true,
+  integrations = {gitsigns = true, blink_cmp = true, treesitter = true}
+})
+
+vim.cmd.colorscheme('catppuccin')
+
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<C-c>', '<cmd>ccl<Bar>nohlsearch<CR>',
                {noremap = true, silent = true})
@@ -56,37 +67,30 @@ vim.keymap.set('v', '<', '<gv', {noremap = true, silent = true})
 local fzfLua = require('fzf-lua')
 
 fzfLua.setup({
-  'hide',
+  {"hide"},
   winopts = {
     height = 0.7,
     width = 0.8,
     row = 0.5,
     col = 0.5,
+    backdrop = 100,
     preview = {scrollbar = false}
   },
-  fzf_opts = {['--layout'] = 'reverse'}
+  fzf_opts = {["--layout"] = "reverse"}
 })
+vim.api.nvim_set_hl(0, "FzfLuaNormal", {bg = "none"})
+vim.api.nvim_set_hl(0, "FzfLuaBorder", {bg = "none"})
+vim.api.nvim_set_hl(0, "FzfLuaPreviewNormal", {bg = "none"})
+vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
 fzfLua.register_ui_select()
 
 vim.keymap
     .set('n', '<Leader>b', fzfLua.buffers, {noremap = true, silent = true})
-vim.keymap.set('n', '<Leader>f', fzfLua.git_files,
+vim.keymap.set('n', '<Leader>f', fzfLua.files, {noremap = true, silent = true})
+vim.keymap.set('n', '<Leader>F', fzfLua.git_files,
                {noremap = true, silent = true})
-vim.keymap.set('n', '<Leader>F', fzfLua.files, {noremap = true, silent = true})
-vim.keymap.set('n', '<C-f>',
-               function() require('fzf-lua').live_grep({resume = true}) end,
+vim.keymap.set('n', '<C-f>', function() fzfLua.live_grep({resume = true}) end,
                {noremap = true, silent = true})
-
-require('catppuccin').setup({
-  flavour = 'mocha',
-  transparent_background = true,
-  show_end_of_buffer = false,
-  term_colors = false,
-  default_integrations = true,
-  integrations = {gitsigns = true, blink_cmp = true, treesitter = true}
-})
-
-vim.cmd.colorscheme('catppuccin')
 
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
