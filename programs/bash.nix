@@ -76,24 +76,6 @@
           fi
         fi
       }
-
-      jdr() {
-        if [ -z "$1" ]; then
-          jj diff -r @-
-        else
-          jj diff -r "$1"
-        fi
-      }
-
-      jr() {
-        if [ $# -eq 1 ]; then
-          jj rebase -b @ -d "$1"
-        elif [ $# -eq 2 ]; then
-          jj rebase -b "$1" -d "$2"
-        else
-          echo "Usage jr <base> <dest>"
-        fi
-      }
     '';
   };
 }
