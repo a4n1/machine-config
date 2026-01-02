@@ -76,7 +76,17 @@ fzfLua.setup({
     backdrop = 100,
     preview = {scrollbar = false}
   },
-  fzf_opts = {["--layout"] = "reverse"}
+  fzf_opts = {["--layout"] = "reverse"},
+  files = {
+    no_ignore = true,
+    rg_opts = [[--color=never --hidden --files -g "!.git" -g "!.jj/**" ]]
+  },
+  git = {
+    status = {
+      preview_pager = false,
+      actions = {["right"] = false, ["left"] = false, ["ctrl-x"] = false}
+    }
+  }
 })
 vim.api.nvim_set_hl(0, "FzfLuaNormal", {bg = "none"})
 vim.api.nvim_set_hl(0, "FzfLuaBorder", {bg = "none"})
@@ -90,6 +100,8 @@ vim.keymap.set('n', '<Leader>f', fzfLua.files, {noremap = true, silent = true})
 vim.keymap.set('n', '<Leader>F', fzfLua.git_files,
                {noremap = true, silent = true})
 vim.keymap.set('n', '<C-f>', function() fzfLua.live_grep({resume = true}) end,
+               {noremap = true, silent = true})
+vim.keymap.set('n', '<Leader>g', fzfLua.git_status,
                {noremap = true, silent = true})
 
 local capabilities = require('blink.cmp').get_lsp_capabilities()
