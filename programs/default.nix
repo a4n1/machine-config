@@ -1,5 +1,6 @@
 { system, ... }: {
   imports = [
+    ./scripts.nix
     ./bash.nix
     ./blesh.nix
     ./git.nix

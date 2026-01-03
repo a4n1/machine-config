@@ -1,8 +1,21 @@
-{ ...}: {
+{ pkgs, ... }: {
   programs.tmux = {
     enable = true;
     prefix = "C-a";
     keyMode = "vi";
+    plugins = with pkgs; [
+      {
+        plugin = tmuxPlugins.fingers;
+        extraConfig = ''
+          bind -n C-n run -b "#{@fingers-cli} start #{pane_id}"
+          set -g @fingers-pattern-0 '([\w._\/-][\w._\/ -]+\.[\w.\/:]+)'
+          set -g @fingers-pattern-1 '(?<match>[\w._\/-][\w._\/ -]+\.[\w.\/:]+)'
+          set -g @fingers-ctrl-action "xargs -I {} tmux run-shell \"cd '#{pane_current_path}' && on '{}'\""
+        '';
+      }
+      tmuxPlugins.better-mouse-mode
+      tmuxPlugins.yank
+    ];
     extraConfig = ''
       bind r source-file ~/.config/tmux/tmux.conf
 
@@ -42,6 +55,9 @@
           set -g "status-format[0]" ""
           set -g status 2
       }
+
+      # temp fix for fingers colors (fixed in latest tmux version)
+      run -b "TERM=tmux-256color #{@fingers-cli} load-config"
     '';
   };
 }
