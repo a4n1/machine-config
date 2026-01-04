@@ -86,7 +86,8 @@ fzfLua.setup({
       preview_pager = false,
       actions = {["right"] = false, ["left"] = false, ["ctrl-x"] = false}
     }
-  }
+  },
+  diagnostics = {severity_only = 'error'}
 })
 vim.api.nvim_set_hl(0, "FzfLuaNormal", {bg = "none"})
 vim.api.nvim_set_hl(0, "FzfLuaBorder", {bg = "none"})
@@ -101,7 +102,9 @@ vim.keymap.set('n', '<Leader>F', fzfLua.git_files,
                {noremap = true, silent = true})
 vim.keymap.set('n', '<C-f>', function() fzfLua.live_grep({resume = true}) end,
                {noremap = true, silent = true})
-vim.keymap.set('n', '<Leader>g', fzfLua.git_status,
+vim.keymap.set('n', '<Leader>gf', fzfLua.git_status,
+               {noremap = true, silent = true})
+vim.keymap.set('n', '<Leader>ld', fzfLua.lsp_workspace_diagnostics,
                {noremap = true, silent = true})
 
 local capabilities = require('blink.cmp').get_lsp_capabilities()
@@ -168,8 +171,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     bufmap('n', 'gr', vim.lsp.buf.references)
     bufmap('n', 'gs', vim.lsp.buf.signature_help)
     bufmap('n', '<Leader>r', vim.lsp.buf.rename)
-    bufmap('n', '<Leader>m', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
-    bufmap('n', 'g.', fzfLua.lsp_code_actions)
+    bufmap('n', '<Leader>.', fzfLua.lsp_code_actions)
     bufmap('n', '[d', vim.diagnostic.goto_prev)
     bufmap('n', ']d', vim.diagnostic.goto_next)
   end
@@ -204,12 +206,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 local gitsigns = require('gitsigns')
 
 gitsigns.setup({auto_attach = true})
-vim.keymap.set({'n', 'v'}, '<leader>gs', gitsigns.stage_hunk)
-vim.keymap.set({'n', 'v'}, '<leader>gu', gitsigns.undo_stage_hunk)
 vim.keymap.set({'n', 'v'}, '<leader>gr', gitsigns.reset_hunk)
-vim.keymap.set({'n', 'v'}, '<leader>gS', gitsigns.stage_buffer)
-vim.keymap.set({'n', 'v'}, '<leader>gR', gitsigns.reset_buffer)
 vim.keymap.set({'n', 'v'}, '<leader>gd', gitsigns.preview_hunk_inline)
 vim.keymap.set({'n', 'v'}, '<leader>gb', gitsigns.toggle_current_line_blame)
-vim.keymap.set('n', ']c', '<cmd>lua gitsigns.nav_hunk("next")<cr>')
-vim.keymap.set('n', ']c', '<cmd>lua gitsigns.nav_hunk("prev")<cr>')
