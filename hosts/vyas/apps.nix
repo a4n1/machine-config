@@ -17,6 +17,8 @@
     nixd
     luaformatter
     lua-language-server
+    htop
+    prettier
   ];
 
   homebrew = {
@@ -38,6 +40,10 @@
       "zoom"
       "vscodium"
       "vmware-fusion"
+      "google-chrome"
+      "cursor"
+      "kicad"
+      "blender"
     ];
   };
 
