@@ -14,7 +14,12 @@
         '';
       }
       tmuxPlugins.better-mouse-mode
-      tmuxPlugins.yank
+      {
+        plugin = tmuxPlugins.yank;
+        extraConfig = ''
+          set -g @yank_action "copy-pipe"
+        '';
+      }
     ];
     extraConfig = ''
       bind r source-file ~/.config/tmux/tmux.conf
