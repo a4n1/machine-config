@@ -9,20 +9,7 @@
       grep = "grep --color=auto";
       ls = "ls --color=auto";
       tree = "tree -C";
-
-      jc = "jj commit";
-      jf = "jj git fetch";
-      js = "jj squash";
-      jd = "jj diff";
-      jt = "jj bookmark move --from \"heads(::@- & bookmarks())\" --to @-";
-      ju = "jj undo";
-      jl = "jj log -p";
-      jp = "jj git push";
-      jn = "jj new";
-      je = "jj edit";
-
       nd = "nix develop path:$(pwd)/nix";
-
       vim = "nvim";
     };
 
@@ -55,27 +42,19 @@
         export PS1="\n$ "  
       fi
 
-      t() {
-        local dir_name="$(basename "$PWD")"
+      source <(COMPLETE=bash jj)
 
-        if tmux has-session -t "$dir_name" 2>/dev/null; then
-          tmux attach-session -t "$dir_name"
-        else
-          tmux new -s "$dir_name" $SHELL         
-        fi
-      }
-
-      ts() {
-        if [ -n "$TMUX" ]; then
-          tmux list-sessions -F '#{session_name}' | fzf | xargs -I {} tmux switch-client -t {}
-        else
-          session=$(tmux list-sessions -F '#{session_name}' | fzf)
-
-          if [ -n "$session" ]; then
-            tmux attach-session -t "$session"
-          fi
-        fi
-      }
+      source clap_alias
+      clap_alias jc='jj commit'
+      clap_alias jf='jj git fetch'
+      clap_alias js='jj squash'
+      clap_alias jd='jj diff'
+      clap_alias jt="jj bookmark move --from \"heads(::@- & bookmarks())\" --to @-"
+      clap_alias ju='jj undo'
+      clap_alias jl='jj log -p'
+      clap_alias jp='jj git push'
+      clap_alias jn='jj new'
+      clap_alias je='jj edit'
     '';
   };
 }
