@@ -30,7 +30,19 @@
     niri,
     stylix,
     ...
-  }@inputs: let
+  }@inputs:
+    let overlays = [
+      (final: prev: {
+        blesh = prev.blesh.overrideAttrs (old: {
+          version = "nightly-20251019+2f564e6";
+          src = final.fetchzip {
+            url = "https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly-20251019+2f564e6.tar.xz";
+            sha256 = "sha256-fpNorzJcKs1vVhaYKgRz5vcs6jsEvdxe3N4F2L81Rc0=";
+          };
+        });
+      })
+    ];
+
     vyas = {
       username = "agni";
       system = "x86_64-darwin";
@@ -52,6 +64,7 @@
       system = vyas.system;
       specialArgs = { inherit inputs; system = vyas; };
       modules = [
+        { nixpkgs.overlays = overlays; }
         ./hosts/vyas
         ./modules/nix-core.nix
         ./modules/darwin/system.nix
@@ -70,6 +83,7 @@
       system = vyas.vm.system;
       specialArgs = { inherit inputs; system = vyas.vm; };
       modules = [
+        { nixpkgs.overlays = overlays; }
         niri.nixosModules.niri
         stylix.nixosModules.stylix
         ./modules/nix-core.nix
@@ -89,6 +103,7 @@
       system = vault.system;
       specialArgs = { inherit inputs; system = vault; };
       modules = [
+        { nixpkgs.overlays = overlays; }
         ./hosts/vault
         ./modules/nix-core.nix
         ./modules/darwin/system.nix

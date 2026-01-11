@@ -48,7 +48,7 @@
         export PATH=/bin:$PATH;
         export PROMPT_COMMAND="tmux refresh-client -S &> /dev/null";
         export PS1="\n\001\e[0;36m\002λ\001\e[0m\002 ";
-        source "$(${pkgs.blesh.outPath}/bin/blesh-share)/ble.sh";
+        source "${pkgs.blesh}/share/blesh/ble.sh";
         set -o vi;
         bind 'set keyseq-timeout 1';
       else
