@@ -1,6 +1,6 @@
-{ pkgs, ...}: {
+{ ... }: {
   imports = [
     ../../../programs
-    ../../../programs/niri
+    ../../../programs/desktop.nix
   ];
 }

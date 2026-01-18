@@ -1,4 +1,4 @@
-{ system, config, lib, pkgs, inputs, niri, ... }: {
+{ system, pkgs, ... }: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   

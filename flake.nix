@@ -59,6 +59,12 @@
       system = "aarch64-darwin";
       hostname = "vault";
     };
+
+    thir = {
+      username = "thir";
+      system = "x86_64-linux";
+      hostname = "thir";
+    };
   in {
     darwinConfigurations.vyas = darwin.lib.darwinSystem {
       system = vyas.system;
@@ -87,8 +93,8 @@
         niri.nixosModules.niri
         stylix.nixosModules.stylix
         ./modules/nix-core.nix
-        ./modules/nixos/configuration.nix
-        ./hosts/vyas/vm/hardware-configuration.nix
+        ./modules/nixos/desktop-configuration.nix
+        ./hosts/vyas/vm/configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
@@ -114,6 +120,24 @@
           home-manager.backupFileExtension = "backup";
           home-manager.extraSpecialArgs = { inherit inputs; system = vault; };
           home-manager.users.${vault.username} = import ./hosts/vault/home.nix;
+        }
+      ];
+    };
+
+    nixosConfigurations.thir = nixpkgs.lib.nixosSystem {
+      system = thir.system;
+      specialArgs = { inherit inputs; system = thir; };
+      modules = [
+        { nixpkgs.overlays = overlays; }
+        ./modules/nix-core.nix
+        ./modules/nixos/server-configuration.nix
+        ./hosts/thir/configuration.nix
+        home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
+          home-manager.extraSpecialArgs = { inherit inputs; system = thir; };
+          home-manager.users.${thir.username} = import ./hosts/thir/home.nix;
         }
       ];
     };

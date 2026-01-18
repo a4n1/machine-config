@@ -1,6 +1,7 @@
 { ... }: {
   imports = [
     ../../programs
-    ../../programs/desktop.nix
+    ../../programs/server.nix
   ];
 }
+
