@@ -1,4 +1,16 @@
-{ config, pkgs, ...}: {
+{ pkgs, system, ...}:
+let
+    servers = {
+      thir = true;
+    };
+    serverPrompt = ''\n\001\e[0;36m\002(\h) λ\001\e[0m\002 '';
+    desktopPrompt = ''\n\001\e[0;36m\002λ\001\e[0m\002 '';
+    PS1 =
+      if servers ? ${system.hostname}
+      then serverPrompt
+      else desktopPrompt;
+    ps1Export = ''export PS1="${PS1}";'';
+in {
   programs.bash = {
     enable = true;
     historyIgnore = [ "ls" "exit" "kill" ];
@@ -34,7 +46,7 @@
       if [[ $(tty) =~ ^/dev/(pts|ttys).* ]]; then
         export PATH=/bin:$PATH;
         export PROMPT_COMMAND="tmux refresh-client -S &> /dev/null";
-        export PS1="\n\001\e[0;36m\002λ\001\e[0m\002 ";
+        ${ps1Export}
         source "${pkgs.blesh}/share/blesh/ble.sh";
         set -o vi;
         bind 'set keyseq-timeout 1';
