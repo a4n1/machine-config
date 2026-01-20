@@ -39,8 +39,8 @@
       bind -r "." swap-window -d -t +1
       bind -r o select-pane -t :.+
       bind -r O select-pane -t :.-
-      bind v split-window -v
-      bind S split-window -h
+      bind v split-window -h
+      bind S split-window -v
       bind s split-window -v "tmux list-sessions -F '#{session_name}' | fzf | xargs -I {} tmux switch-client -t {}"
       bind c new-window '/run/current-system/sw/bin/bash'
  
