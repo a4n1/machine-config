@@ -11,7 +11,6 @@
     ripgrep
     gnupg
     defaultbrowser
-    lima
     docker
     docker-compose
     mkcert
@@ -24,6 +23,7 @@
     wireguard-tools
     htop
     prettier
+    tailscale
   ];
 
   homebrew = {

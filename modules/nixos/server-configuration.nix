@@ -15,7 +15,10 @@
     tree
     gnumake
     gnupg
+    tailscale
   ];
+
+  services.tailscale.enable = true;
 }
 
 

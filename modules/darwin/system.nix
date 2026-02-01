@@ -72,11 +72,26 @@
         };
       };
     };
+
+    activationScripts.setupLaunchAgents = {
+      enable = true;
+      text = ''
+        #!/usr/bin/env bash
+
+        sudo /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u;
+
+        if [[ $SHELL != *bash* ]]; then
+          sudo chsh -s /run/current-system/sw/bin/bash;
+        fi
+
+        sudo defaultbrowser firefox;
+      '';
+    };
   };
 
-  security.pam.services.sudo_local.touchIdAuth = true;
+  services.tailscale.enable = true;
 
-  programs.zsh.enable = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   environment.shells = [
     pkgs.bashInteractive
@@ -87,21 +102,6 @@
       # Managed by Nix Darwin
       auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
       auth       sufficient     pam_tid.so
-    '';
-  };
-
-  system.activationScripts.setupLaunchAgents = {
-    enable = true;
-    text = ''
-      #!/usr/bin/env bash
-
-      sudo /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u;
-
-      if [[ $SHELL != *bash* ]]; then
-        sudo chsh -s /run/current-system/sw/bin/bash;
-      fi
-
-      sudo defaultbrowser firefox;
     '';
   };
 }
