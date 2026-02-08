@@ -1,7 +1,7 @@
 { pkgs, system, ...}:
 let
     servers = {
-      thir = true;
+      thirver = true;
     };
     serverPrompt = ''\n\001\e[0;36m\002(\h) λ\001\e[0m\002 '';
     desktopPrompt = ''\n\001\e[0;36m\002λ\001\e[0m\002 '';

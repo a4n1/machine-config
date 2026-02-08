@@ -60,10 +60,10 @@
       hostname = "vault";
     };
 
-    thir = {
+    thirver = {
       username = "thir";
       system = "x86_64-linux";
-      hostname = "thir";
+      hostname = "thirver";
     };
   in {
     darwinConfigurations.vyas = darwin.lib.darwinSystem {
@@ -124,20 +124,20 @@
       ];
     };
 
-    nixosConfigurations.thir = nixpkgs.lib.nixosSystem {
-      system = thir.system;
-      specialArgs = { inherit inputs; system = thir; };
+    nixosConfigurations.thirver = nixpkgs.lib.nixosSystem {
+      system = thirver.system;
+      specialArgs = { inherit inputs; system = thirver; };
       modules = [
         { nixpkgs.overlays = overlays; }
         ./modules/nix-core.nix
         ./modules/nixos/server-configuration.nix
-        ./hosts/thir/configuration.nix
+        ./hosts/thirver/configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.extraSpecialArgs = { inherit inputs; system = thir; };
-          home-manager.users.${thir.username} = import ./hosts/thir/home.nix;
+          home-manager.extraSpecialArgs = { inherit inputs; system = thirver; };
+          home-manager.users.${thirver.username} = import ./hosts/thirver/home.nix;
         }
       ];
     };
