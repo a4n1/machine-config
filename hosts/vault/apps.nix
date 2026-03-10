@@ -52,6 +52,7 @@
       "kicad"
       "android-studio"
       "blender"
+      "gimp"
     ];
   };
 
