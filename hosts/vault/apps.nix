@@ -12,7 +12,7 @@
     gnupg
     defaultbrowser
     docker
-    docker-compose
+    orbstack
     mkcert
     nssTools
     fzf
