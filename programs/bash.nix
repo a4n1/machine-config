@@ -44,12 +44,12 @@ in {
 
     initExtra = ''
       if [[ $(tty) =~ ^/dev/(pts|ttys).* ]]; then
-        export PATH=/bin:$PATH;
-        export PROMPT_COMMAND="tmux refresh-client -S &> /dev/null";
+        [[ $- == *i* ]] && source -- "${pkgs.blesh}/share/blesh/ble.sh" --attach=none
+
+        export PATH=/bin:$PATH
         ${ps1Export}
-        source "${pkgs.blesh}/share/blesh/ble.sh";
-        set -o vi;
-        bind 'set keyseq-timeout 1';
+        set -o vi
+        bind 'set keyseq-timeout 1'
       else
         export PS1="\n$ "  
       fi
@@ -67,6 +67,11 @@ in {
       clap_alias jp='jj git push'
       clap_alias jn='jj new'
       clap_alias je='jj edit'
+
+
+      if [[ $(tty) =~ ^/dev/(pts|ttys).* ]]; then
+        [[ ! $\{BLE_VERSION-} ]] || ble-attach
+      fi
     '';
   };
 }
