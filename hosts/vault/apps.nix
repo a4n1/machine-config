@@ -5,6 +5,7 @@
     git
     jujutsu
     neovim
+    zed-editor
     tmux
     tree
     gawk
