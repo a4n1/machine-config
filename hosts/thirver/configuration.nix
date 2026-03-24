@@ -73,18 +73,25 @@
     };
   };
 
-   services.cloudflared = {
+  services.caddy = {
     enable = true;
-    tunnels = {
-      "c973e1ea-bf85-4604-816b-163d17587df0" = {
-        credentialsFile = "/root/.cloudflared/c973e1ea-bf85-4604-816b-163d17587df0.json";
-        default = "http_status:404";
-        ingress = {
-          "gobble.thirver.com" = "http://localhost:6001";
-        };
-      };
+    package = pkgs.caddy.withPlugins {
+      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.4" ];
+      hash = "sha256-AWeNtf4Eh1WfdLdleYy53n+IGhm4/YGDwXseiCQjblc=";
     };
+    globalConfig = ''
+      acme_dns cloudflare {
+        api_token {$CF_API_TOKEN}
+      }
+    '';
+    virtualHosts."gobble.thirver.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:6001
+      tls {
+        dns cloudflare {$CF_API_TOKEN}
+      }
+    '';
   };
+  systemd.services.caddy.serviceConfig.EnvironmentFile = [ "/etc/caddy/cloudflare.env" ];
 
   system.stateVersion = "25.05";
 }
