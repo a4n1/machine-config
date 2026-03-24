@@ -43,6 +43,28 @@
           };
         });
       })
+
+      (final: prev: {
+        vaultwarden = prev.vaultwarden.overrideAttrs (oldAttrs: let
+          version = "1.35.4";
+          src = final.fetchFromGitHub {
+            owner = "dani-garcia";
+            repo = "vaultwarden";
+            rev = version;
+            hash = "sha256-NphgKTlyVsH42TEGU8unhL798jTQMkS5JyNckKhk8YM=";
+          };
+        in {
+          inherit version src;
+
+          env.VW_VERSION = version;
+
+          cargoDeps = final.rustPlatform.fetchCargoVendor {
+            inherit src;
+            name = "vaultwarden-${version}-vendor";
+            hash = "sha256-PkFxHhFrdVB/hfSoT6j87K4IEknl+ZO1omGHrXBWEMg="; 
+          };
+        });
+      })
     ];
 
     vyas = {

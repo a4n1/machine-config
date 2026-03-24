@@ -19,6 +19,20 @@
     extraGroups = [ "wheel" ];
   };
 
+  services.vaultwarden = {
+    enable = true;
+    backupDir = "/var/local/vaultwarden/backup";
+    environmentFile = "/var/lib/vaultwarden/vaultwarden.env";
+    config = {
+      DOMAIN = "https://vault.thirver.com";
+      SIGNUPS_ALLOWED = false;
+
+      ROCKET_ADDRESS = "127.0.0.1";
+      ROCKET_PORT = 6002;
+      ROCKET_LOG = "critical";
+    };
+  };
+
   users.users.gobble = {
     isNormalUser = true;
     extraGroups = [ "wheel" "podman" "postgres" ];
@@ -84,8 +98,21 @@
         api_token {$CF_API_TOKEN}
       }
     '';
+
     virtualHosts."gobble.thirver.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:6001
+      reverse_proxy :6001
+      tls {
+        dns cloudflare {$CF_API_TOKEN}
+      }
+    '';
+
+    virtualHosts."vault.thirver.com".extraConfig = ''
+      encode zstd gzip
+
+      reverse_proxy :6002 {
+          header_up X-Real-IP {remote_host}
+      }
+
       tls {
         dns cloudflare {$CF_API_TOKEN}
       }

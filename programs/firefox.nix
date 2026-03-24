@@ -1,4 +1,3 @@
-{ lib, pkgs, system, inputs, ...}: {
 { lib, pkgs, system, ...}: {
   programs.firefox = {
     enable = true;
@@ -40,6 +39,7 @@
         "browser.search.suggest.enabled" = false;
         "browser.urlbar.suggest.searches" = false;
         "browser.urlbar.suggest.recentsearches" = false;
+        "signon.rememberSignons" = false;
       };
 
       extraConfig = ''
@@ -47,7 +47,9 @@
         user_pref("extensions.enabledScopes", 15);
       '';
 
+      extensions.packages = with pkgs.firefox-addons; [
         ublock-origin
+        bitwarden
         onepassword-password-manager
       ];
     };

@@ -24,6 +24,7 @@
     htop
     prettier
     tailscale
+    bitwarden-desktop
   ];
 
   homebrew = {
@@ -60,6 +61,7 @@
     persistent-apps = [
       "/System/Applications/System Settings.app"
       "/Applications/1Password.app"
+      "/Applications/Nix Apps/Bitwarden.app"
       "/Applications/Slack.app"
       "/Applications/Firefox.app"
       "/Applications/Ghostty.app"
