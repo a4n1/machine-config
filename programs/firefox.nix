@@ -1,4 +1,5 @@
 { lib, pkgs, system, inputs, ...}: {
+{ lib, pkgs, system, ...}: {
   programs.firefox = {
     enable = true;
 
@@ -46,8 +47,8 @@
         user_pref("extensions.enabledScopes", 15);
       '';
 
-      extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
+        onepassword-password-manager
       ];
     };
   };

@@ -32,6 +32,8 @@
     ...
   }@inputs:
     let overlays = [
+      inputs.firefox-addons.overlays.default
+
       (final: prev: {
         blesh = prev.blesh.overrideAttrs (old: {
           version = "nightly-20251019+2f564e6";
