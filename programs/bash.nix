@@ -68,6 +68,57 @@ in {
       clap_alias jn='jj new'
       clap_alias je='jj edit'
 
+      notes() {
+        if [ -z "$1" ]; then
+            echo "Usage: notes <name>"
+            return 1
+        fi
+        vim "scp://notes@thirver//home/notes/$1.txt"
+      }
+
+      dd() {
+          if [ -z "$1" ]; then
+              echo "Usage: dd <image_name>"
+              return 1
+          fi
+
+          local IMAGE_NAME="$1"
+
+          docker build -t "$IMAGE_NAME:latest" . || return 1
+          docker tag "$IMAGE_NAME:latest" "a4n1/$IMAGE_NAME:latest" || return 1
+          docker push "a4n1/$IMAGE_NAME:latest" || return 1
+          echo "Done! Image pushed: a4n1/$IMAGE_NAME:latest"
+      }
+
+      dr() {
+          if [ $# -lt 2 ]; then
+              echo "Usage: dr <image_name> <port>"
+              return 1
+          fi
+
+          local IMAGE_NAME="$1"
+          local PORT="$2"
+          shift 2
+
+          docker rm -f "$NAME" 2>/dev/null || true
+          docker build -t "$IMAGE_NAME" . || return 1
+          docker run -p "$PORT:$PORT" --name "$IMAGE_NAME" "$@" "$IMAGE_NAME"
+      }
+
+      pr() {
+          if [ -z "$1" ]; then
+              echo "Usage: pr <image_name>"
+              return 1
+          fi
+
+          local NAME="$1"
+          local IMAGE="docker.io/a4n1/$NAME:latest"
+          local SERVICE="podman-$NAME.service"
+
+          podman pull "$IMAGE" || return 1
+          sudo systemctl restart "$SERVICE" || return 1
+          echo "Done! $SERVICE restarted with the latest image"
+      }
 
       if [[ $(tty) =~ ^/dev/(pts|ttys).* ]]; then
         [[ ! $\{BLE_VERSION-} ]] || ble-attach
