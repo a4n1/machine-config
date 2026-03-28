@@ -39,6 +39,12 @@
     uid = 1002;
   };
 
+  users.users.notes = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "podman" ];
+    uid = 1003;
+  };
+
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_16;
@@ -71,18 +77,23 @@
     oci-containers.containers = {
       gobble = {
         image = "a4n1/gobble:latest";
+        pull = "always";
         ports = ["6001:6001"];
-        volumes = [
-          "/run/postgresql:/run/postgresql"
-        ];
+        volumes = ["/run/postgresql:/run/postgresql"];
         environment = {
           DATABASE_URL = "postgresql://gobble@/gobble?host=/run/postgresql";
           PORT = "6001";
           NODE_ENV = "production";
         };
-        extraOptions = [
-          "--user=1002:100"
-        ];
+        extraOptions = ["--user=1002:100"];
+      };
+
+      notes = {
+        image = "a4n1/notes:latest";
+        pull = "always";
+        ports = ["6003:6003"];
+        volumes = ["/home/notes:/data"];
+        extraOptions = ["--user=1003:100"];
       };
     };
   };
@@ -112,6 +123,22 @@
       reverse_proxy :6002 {
           header_up X-Real-IP {remote_host}
       }
+
+      tls {
+        dns cloudflare {$CF_API_TOKEN}
+      }
+    '';
+
+    virtualHosts."notes.thirver.com".extraConfig = ''
+      reverse_proxy :6003
+
+      tls {
+        dns cloudflare {$CF_API_TOKEN}
+      }
+    '';
+
+    virtualHosts."notes.a4n1.com".extraConfig = ''
+      reverse_proxy :6003
 
       tls {
         dns cloudflare {$CF_API_TOKEN}
