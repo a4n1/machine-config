@@ -11,5 +11,6 @@
     ./atuin.nix
     ./ghostty.nix
     ./firefox.nix
+    ./ssh.nix
   ];
 }
