@@ -19,6 +19,39 @@
     extraGroups = [ "wheel" ];
   };
 
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_16;
+
+    settings = {
+      listen_addresses = pkgs.lib.mkForce "";
+      unix_socket_directories = "/run/postgresql";
+    };
+
+    authentication = pkgs.lib.mkOverride 10 ''
+      local   all   all   peer
+    '';
+
+    ensureDatabases = [ "gobble" "immich" ];
+    ensureUsers = [
+      {
+        name = "gobble";
+        ensureDBOwnership = true;
+        ensureClauses = {
+          login = true;
+        };
+      }
+
+      {
+        name = "immich";
+        ensureDBOwnership = true;
+        ensureClauses = {
+          login = true;
+        };
+      }
+    ];
+  };
+
   services.vaultwarden = {
     enable = true;
     backupDir = "/var/local/vaultwarden/backup";
@@ -65,6 +98,12 @@
     ports = [ 6004 ];
   };
 
+  services.immich = {
+    enable = true;
+    port = 6005;
+    host = "photos.thirver.com";
+  };
+
   users.users.gobble = {
     isNormalUser = true;
     extraGroups = [ "wheel" "podman" "postgres" ];
@@ -75,31 +114,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "podman" ];
     uid = 1003;
-  };
-
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_16;
-
-    settings = {
-      listen_addresses = pkgs.lib.mkForce "";
-      unix_socket_directories = "/run/postgresql";
-    };
-
-    authentication = pkgs.lib.mkOverride 10 ''
-      local   all   all   peer
-    '';
-
-    ensureDatabases = [ "gobble" ];
-    ensureUsers = [
-      {
-        name = "gobble";
-        ensureDBOwnership = true;
-        ensureClauses = {
-          login = true;
-        };
-      }
-    ];
   };
 
   virtualisation = {
@@ -177,8 +191,16 @@
       }
     '';
 
-    virtualHosts."pi-hole.thirver.com".extraConfig = ''
+    virtualHosts."dns.thirver.com".extraConfig = ''
       reverse_proxy :6004
+
+      tls {
+        dns cloudflare {$CF_API_TOKEN}
+      }
+    '';
+
+    virtualHosts."photos.thirver.com".extraConfig = ''
+      reverse_proxy :6005
 
       tls {
         dns cloudflare {$CF_API_TOKEN}
