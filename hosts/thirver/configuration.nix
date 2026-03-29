@@ -12,7 +12,7 @@
     };
   };
    
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ 22 53 ];
 
   users.users.${system.username} = {
     isNormalUser = true;
@@ -31,6 +31,38 @@
       ROCKET_PORT = 6002;
       ROCKET_LOG = "critical";
     };
+  };
+
+  services.dnsmasq = {
+    enable = false;
+    settings = {
+      address = [
+        "/.thirver.com/100.119.234.39"
+      ];
+    };
+  };
+
+  services.pihole-ftl = {
+    enable = true;
+    lists = [
+      {
+        url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+      }
+    ];
+    queryLogDeleter.enable = true;
+    settings = {
+      misc.readOnly = true;
+      dns = {
+        upstreams = [ "9.9.9.9" "149.112.112.112" ];
+        listeningMode = "ALL";
+      };
+    };
+    useDnsmasqConfig = true;
+  };
+
+  services.pihole-web = {
+    enable = true;
+    ports = [ 6004 ];
   };
 
   users.users.gobble = {
@@ -139,6 +171,14 @@
 
     virtualHosts."notes.a4n1.com".extraConfig = ''
       reverse_proxy :6003
+
+      tls {
+        dns cloudflare {$CF_API_TOKEN}
+      }
+    '';
+
+    virtualHosts."pi-hole.thirver.com".extraConfig = ''
+      reverse_proxy :6004
 
       tls {
         dns cloudflare {$CF_API_TOKEN}

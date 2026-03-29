@@ -19,6 +19,7 @@
   ];
 
   services.tailscale.enable = true;
+  services.tailscale.extraSetFlags = [ "--accept-dns=false" ];
 }
 
 
