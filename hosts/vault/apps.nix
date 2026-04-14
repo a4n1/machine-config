@@ -25,6 +25,7 @@
     prettier
     tailscale
     bitwarden-desktop
+    opencode
   ];
 
   homebrew = {
