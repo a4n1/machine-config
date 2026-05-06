@@ -32,7 +32,7 @@
       local   all   all   peer
     '';
 
-    ensureDatabases = [ "gobble" "immich" ];
+    ensureDatabases = [ "gobble" "immich" "spendless" ];
     ensureUsers = [
       {
         name = "gobble";
@@ -44,6 +44,14 @@
 
       {
         name = "immich";
+        ensureDBOwnership = true;
+        ensureClauses = {
+          login = true;
+        };
+      }
+
+      {
+        name = "spendless";
         ensureDBOwnership = true;
         ensureClauses = {
           login = true;
@@ -116,6 +124,12 @@
     uid = 1003;
   };
 
+  users.users.spendless = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "podman" "postgres" ];
+    uid = 1004;
+  };
+
   virtualisation = {
     podman = {
       enable = true;
@@ -140,6 +154,15 @@
         ports = ["6003:6003"];
         volumes = ["/home/notes:/data"];
         extraOptions = ["--user=1003:100"];
+      };
+
+      spendless = {
+        image = "tjgohil/spendless:latest";
+        pull = "always";
+        ports = ["6006:3001"];
+        volumes = ["/run/postgresql:/run/postgresql"];
+        environmentFiles = [ "/var/lib/spendless/spendless.env" ];
+        extraOptions = ["--user=1004:100"];
       };
     };
   };
@@ -201,6 +224,15 @@
 
     virtualHosts."photos.thirver.com".extraConfig = ''
       reverse_proxy :6005
+
+      tls {
+        dns cloudflare {$CF_API_TOKEN}
+      }
+    '';
+
+
+    virtualHosts."spendless.thirver.com".extraConfig = ''
+      reverse_proxy :6006
 
       tls {
         dns cloudflare {$CF_API_TOKEN}
