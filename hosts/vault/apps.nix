@@ -27,6 +27,7 @@
     tailscale
     bitwarden-desktop
     opencode
+    gh
   ];
 
   homebrew = {
