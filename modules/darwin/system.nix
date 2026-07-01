@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, system, ... }: {
   system = {
     stateVersion = 5;
 
@@ -73,20 +73,15 @@
       };
     };
 
-    activationScripts.setupLaunchAgents = {
-      enable = true;
-      text = ''
-        #!/usr/bin/env bash
+    activationScripts.postActivation.text = ''
+      sudo -u ${system.username} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
-        sudo /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u;
+      if [[ $SHELL != *bash* ]]; then
+        sudo -u ${system.username} chsh -s /run/current-system/sw/bin/bash
+      fi
 
-        if [[ $SHELL != *bash* ]]; then
-          sudo chsh -s /run/current-system/sw/bin/bash;
-        fi
-
-        sudo defaultbrowser firefox;
-      '';
-    };
+      sudo -u ${system.username} ${pkgs.defaultbrowser}/bin/defaultbrowser firefox
+    '';
   };
 
   services.tailscale.enable = true;
@@ -96,6 +91,8 @@
   environment.shells = [
     pkgs.bashInteractive
   ];
+
+  environment.variables.EDITOR = "nvim";
 
   environment = {
     etc."pam.d/sudo_local".text = ''
