@@ -45,6 +45,10 @@
           NewWindowTarget = "Home";
       };
 
+        "com.apple.WindowManager" = {
+          EnableTiledWindowMargins = true;
+        };
+
         "com.apple.Spotlight" = {
           orderedItems = [
             { enabled = true; name = "APPLICATIONS"; }
