@@ -82,6 +82,11 @@
       username = "agni";
       system = "aarch64-darwin";
       hostname = "vault";
+      vm = {
+        username = "vm";
+        system = "aarch64-linux";
+        hostname = "vm";
+      };
     };
 
     thirver = {
@@ -144,6 +149,26 @@
           home-manager.backupFileExtension = "backup";
           home-manager.extraSpecialArgs = { inherit inputs; system = vault; };
           home-manager.users.${vault.username} = import ./hosts/vault/home.nix;
+        }
+      ];
+    };
+
+    nixosConfigurations.vault-vm = nixpkgs.lib.nixosSystem {
+      system = vault.vm.system;
+      specialArgs = { inherit inputs; system = vault.vm; };
+      modules = [
+        { nixpkgs.overlays = overlays; }
+        niri.nixosModules.niri
+        stylix.nixosModules.stylix
+        ./modules/nix-core.nix
+        ./modules/nixos/desktop-configuration.nix
+        ./hosts/vault/vm/configuration.nix
+        home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
+          home-manager.extraSpecialArgs = { inherit inputs; system = vault.vm; };
+          home-manager.users.${vault.vm.username} = import ./hosts/vault/vm/home.nix;
         }
       ];
     };
