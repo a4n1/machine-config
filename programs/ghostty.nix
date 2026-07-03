@@ -4,6 +4,7 @@
       theme = Adventure
       font-family = menlo
       title = " "
+      shell-integration = none
       macos-titlebar-style = tabs
       window-padding-x = 12
       window-padding-y = 8
