@@ -68,7 +68,7 @@
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
       ghostty
-      swaybg
+      codex
     ];
   };
 
@@ -80,13 +80,18 @@
     tree
     gnumake
     gnupg
+    fzf
+  ];
+
+  fonts.packages = with pkgs; [
+    dejavu_fonts
   ];
 
   programs.niri.enable = true;
 
   stylix = {
     enable = true;
-    autoEnable = false;
+    autoEnable = true;
     image = ../../wallpaper.png;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     polarity = "dark";
@@ -95,7 +100,6 @@
       name = "Capitaine Cursors";
       size = 32;
     };
-    homeManagerIntegration.followSystem = true;
   };
 
   system.stateVersion = "24.11";
