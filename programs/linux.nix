@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
     ./niri
-    ./awww.nix
+    ./wpaperd.nix
     ./fuzzel.nix
   ];
 
@@ -10,6 +10,6 @@
   stylix.targets = {
     neovim.enable = false;
     tmux.enable = false;
+    firefox.enable = true;
   };
 }
-

@@ -91,7 +91,7 @@
 
   stylix = {
     enable = true;
-    autoEnable = true;
+    autoEnable = false;
     image = ../../wallpaper.png;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     polarity = "dark";
