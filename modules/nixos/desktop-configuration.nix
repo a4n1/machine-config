@@ -63,12 +63,22 @@
     };
   };
 
+  services.tailscale.enable = true;
+
   users.users.${system.username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
       ghostty
+      nixd
+      luaformatter
+      lua-language-server
+      prettier
+      tailscale
+      bitwarden-desktop
+      gh
       codex
+      claude-code
     ];
   };
 
@@ -81,6 +91,7 @@
     gnumake
     gnupg
     fzf
+    ripgrep
   ];
 
   fonts.packages = with pkgs; [
@@ -104,4 +115,3 @@
 
   system.stateVersion = "24.11";
 }
-
