@@ -100,11 +100,21 @@
 
   programs.niri.enable = true;
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
+    ];
+    config.common.default = [ "gtk" ];
+    wlr.enable = true;
+  };
+
   stylix = {
     enable = true;
     autoEnable = false;
     image = ../../wallpaper.png;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/black-metal.yaml";
     polarity = "dark";
     cursor = {
       package = pkgs.capitaine-cursors-themed;

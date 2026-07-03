@@ -40,6 +40,7 @@
         "browser.urlbar.suggest.searches" = false;
         "browser.urlbar.suggest.recentsearches" = false;
         "signon.rememberSignons" = false;
+        "alerts.useSystemBackend" = true;
       };
 
       extraConfig = ''
