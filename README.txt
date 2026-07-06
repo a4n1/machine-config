@@ -14,9 +14,8 @@ Post-install:
 - Configure macOS display settings
 
 - Set up macOS keyboard shortcuts
-  - Tiling via app shortcuts (Left, Right, Fill, Centre, Center)
+  - Tiling
   - Mission control space switching
-  - New shell tab at folder via services
 
 - Configure Finder sidebar
 
