@@ -5,7 +5,7 @@ lib.mkMerge [
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = {
+      settings = {
         "*" = {
           addKeysToAgent = "yes";
           identityFile = "~/.ssh/id_ed25519";
@@ -30,5 +30,3 @@ lib.mkMerge [
     };
   })
 ]
-
-

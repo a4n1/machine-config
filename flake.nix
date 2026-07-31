@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11-small";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05-small";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin = {
@@ -36,11 +36,21 @@
 
       (final: prev: {
         blesh = prev.blesh.overrideAttrs (old: {
-          version = "nightly-20251019+2f564e6";
+          version = "nightly-20260310+b99cadb";
           src = final.fetchzip {
-            url = "https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly-20260310+b99cadb.tar.xz";
-            sha256 = "sha256-rJnSEY7J4wfy8dnL9Bg59u0epPe0HL1J7piPbkNyes0=";
-          };
+            url = "https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly-20260711+d69e4d5.tar.xz";
+            sha256 = "sha256-YufcfgCiIdvmqJsXnn2WHv2W9QwycnSqg4AdfCvVcZo=";
+          } // { rev = "d69e4d5"; };
+          patches = [ ];
+          postPatch = "";
+          dontBuild = true;
+          doCheck = false;
+          installPhase = ''
+            runHook preInstall
+            mkdir -p "$out/share/blesh"
+            cp -r . "$out/share/blesh"
+            runHook postInstall
+          '';
         });
       })
 

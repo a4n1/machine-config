@@ -28,42 +28,24 @@
     bitwarden-desktop
     opencode
     gh
+    firefox
+    vscodium
+    slack
+    _1password-gui
+    ghostty-bin
+    zoom-us
+    google-chrome
   ];
-
-  homebrew = {
-    enable = true;
-
-    onActivation = {
-      autoUpdate = false;
-      cleanup = "zap";
-    };
-
-    casks = [
-      "firefox"
-      "ghostty"
-      "utm"
-      "zoom"
-      "vscodium"
-      "slack"
-      "1password"
-      "google-chrome"
-      "cursor"
-      "kicad"
-      "android-studio"
-      "blender"
-      "gimp"
-    ];
-  };
 
   system.defaults.dock = {
     persistent-apps = [
       "/System/Applications/System Settings.app"
       "/Applications/Privileges.app"
-      "/Applications/1Password.app"
+      "/Applications/Nix Apps/1Password.app"
       "/Applications/Nix Apps/Bitwarden.app"
-      "/Applications/Slack.app"
-      "/Applications/Firefox.app"
-      "/Applications/Ghostty.app"
+      "/Applications/Nix Apps/Slack.app"
+      "/Applications/Nix Apps/Firefox.app"
+      "/Applications/Nix Apps/Ghostty.app"
       "/Applications/Claude.app"
     ];
   };
