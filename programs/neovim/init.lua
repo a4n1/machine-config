@@ -33,6 +33,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.bo.expandtab = true
   end
 })
+vim.api.nvim_create_autocmd('FileType', {
+  group = 'FileTypeSettings',
+  pattern = 'wgsl',
+  callback = function() vim.treesitter.start() end
+})
 
 require('catppuccin').setup({
   flavour = 'mocha',
@@ -150,6 +155,9 @@ vim.lsp.enable('nixd')
 
 vim.lsp.config.gopls = {capabilities = capabilities}
 vim.lsp.enable('gopls')
+
+vim.lsp.config.wgsl_analyzer = {capabilities = capabilities}
+vim.lsp.enable('wgsl_analyzer')
 
 require('tiny-inline-diagnostic').setup({
   preset = 'classic',
