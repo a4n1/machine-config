@@ -107,7 +107,7 @@
   };
 
   services.immich = {
-    enable = true;
+    enable = false;
     port = 6005;
     host = "photos.thirver.com";
   };
