@@ -21,9 +21,7 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/39003ded-e4eb-41bf-b284-c2238b684b23"; }
-    ];
+  swapDevices = [ { device = "/swapfile"; size = 8192; } ];
 
   networking.useDHCP = lib.mkDefault true;
 
