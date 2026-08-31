@@ -56,12 +56,12 @@
 
       (final: prev: {
         vaultwarden = prev.vaultwarden.overrideAttrs (oldAttrs: let
-          version = "1.35.4";
+          version = "1.37.2";
           src = final.fetchFromGitHub {
             owner = "dani-garcia";
             repo = "vaultwarden";
             rev = version;
-            hash = "sha256-NphgKTlyVsH42TEGU8unhL798jTQMkS5JyNckKhk8YM=";
+            hash = "sha256-ugCkpeDVK3qPYSvL78N3mzu2bYTFlZP2AQeIgsrIYO8=";
           };
         in {
           inherit version src;
@@ -71,7 +71,7 @@
           cargoDeps = final.rustPlatform.fetchCargoVendor {
             inherit src;
             name = "vaultwarden-${version}-vendor";
-            hash = "sha256-PkFxHhFrdVB/hfSoT6j87K4IEknl+ZO1omGHrXBWEMg="; 
+            hash = "sha256-EtdBMCp5aAKsKVM7PwsvJLyW661XdqduhBgk3msYioQ="; 
           };
         });
       })
