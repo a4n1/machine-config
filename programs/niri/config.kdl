@@ -4,6 +4,10 @@ input {
             layout "gb"
         }
     }
+
+    touchpad {
+        tap
+    }
 }
 
 output "Virtual-1" {
