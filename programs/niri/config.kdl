@@ -40,11 +40,13 @@ layout {
     }
 }
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
-// spawn-at-startup "waybar"
+workspace "1" {
+    open-on-output "DP-2"
+}
 
-// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+workspace "2" {
+    open-on-output "DP-2"
+}
 
 hotkey-overlay {
     skip-at-startup

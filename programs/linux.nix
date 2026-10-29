@@ -4,6 +4,7 @@
     ./wpaperd.nix
     ./fuzzel.nix
     ./notifications.nix
+    ./kanshi.nix
   ];
 
   services.ssh-agent.enable = true;
