@@ -1,5 +1,4 @@
 { system, pkgs, ... }: {
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
   networking.hostName = system.hostname;
@@ -29,22 +28,6 @@
   services.xserver.xkb = {
     layout = "gb";
     variant = "";
-  };
-
-  services.xserver.videoDrivers = [ "vmware" ];
-  virtualisation.vmware.guest.enable = true;
-
-  fileSystems."/host" = {
-    fsType = "fuse./run/current-system/sw/bin/vmhgfs-fuse";
-    device = ".host:/";
-    options = [
-      "umask=022"
-      "uid=1000"
-      "gid=1000"
-      "allow_other"
-      "auto_unmount"
-      "defaults"
-    ];
   };
 
   services.avahi = {
@@ -122,6 +105,4 @@
       size = 32;
     };
   };
-
-  system.stateVersion = "24.11";
 }

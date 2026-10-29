@@ -81,6 +81,11 @@
       username = "agni";
       system = "x86_64-darwin";
       hostname = "vyas";
+      linux = {
+        username = "agni";
+        system = "x86_64-linux";
+        hostname = "vyas";
+      };
       vm = {
         username = "vm";
         system = "x86_64-linux";
@@ -104,6 +109,7 @@
       system = "x86_64-linux";
       hostname = "thirver";
     };
+
   in {
     darwinConfigurations.vyas = darwin.lib.darwinSystem {
       system = vyas.system;
@@ -133,6 +139,7 @@
         stylix.nixosModules.stylix
         ./modules/nix-core.nix
         ./modules/nixos/desktop-configuration.nix
+        ./modules/nixos/vm-configuration.nix
         ./hosts/vyas/vm/configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
@@ -172,6 +179,7 @@
         stylix.nixosModules.stylix
         ./modules/nix-core.nix
         ./modules/nixos/desktop-configuration.nix
+        ./modules/nixos/vm-configuration.nix
         ./hosts/vault/vm/configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
@@ -197,6 +205,26 @@
           home-manager.backupFileExtension = "backup";
           home-manager.extraSpecialArgs = { inherit inputs; system = thirver; };
           home-manager.users.${thirver.username} = import ./hosts/thirver/home.nix;
+        }
+      ];
+    };
+
+    nixosConfigurations.vyas = nixpkgs.lib.nixosSystem {
+      system = vyas.linux.system;
+      specialArgs = { inherit inputs; system = vyas.linux; };
+      modules = [
+        { nixpkgs.overlays = overlays; }
+        niri.nixosModules.niri
+        stylix.nixosModules.stylix
+        ./modules/nix-core.nix
+        ./modules/nixos/desktop-configuration.nix
+        ./hosts/vyas/linux/configuration.nix
+        home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
+          home-manager.extraSpecialArgs = { inherit inputs; system = vyas.linux; };
+          home-manager.users.${vyas.linux.username} = import ./hosts/vyas/linux/home.nix;
         }
       ];
     };

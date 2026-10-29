@@ -12,7 +12,7 @@ DEPLOY_COMMAND = \
 	podman pull docker.io/tjgohil/spendless:latest && \
 	sudo nixos-rebuild switch --flake .\#$(HOST)
 else
-DEPLOY_COMMAND = sudo nixos-rebuild switch --flake .\#$(HOST)-vm
+DEPLOY_COMMAND = sudo nixos-rebuild switch --flake .\#$(HOST)
 endif
 endif
 
