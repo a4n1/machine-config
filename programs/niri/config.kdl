@@ -15,6 +15,8 @@ output "Virtual-1" {
     transform "normal"
 }
 
+spawn-at-startup "noctalia"
+
 cursor {
     xcursor-theme "Capitaine Cursors"
     xcursor-size 32
@@ -74,11 +76,17 @@ window-rule {
     clip-to-geometry true
 }
 
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return hotkey-overlay-title="Open Terminal" { spawn "ghostty"; }
-    Mod+Space hotkey-overlay-title="Open App Launcher" { spawn-sh "pkill fuzzel || exec fuzzel"; }
+    Mod+Space hotkey-overlay-title="Open App Launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "-l" "1.5" "@DEFAULT_AUDIO_SINK@" "5%+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
@@ -86,6 +94,7 @@ binds {
     XF86AudioMicMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     Mod+O repeat=false { toggle-overview; }
+    Mod+Shift+L { spawn "noctalia" "msg" "session" "lock"; }
 
     Mod+H     { focus-column-left; }
     Mod+J     { focus-workspace-down; }

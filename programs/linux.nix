@@ -1,28 +1,18 @@
-{ config, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./niri
-    ./wpaperd.nix
-    ./fuzzel.nix
-    ./notifications.nix
+    ./noctalia.nix
     ./kanshi.nix
   ];
 
   services.ssh-agent.enable = true;
 
-  home.pointerCursor.enable = true;
+  home.pointerCursor = {
+    enable = true;
+    name = "Capitaine Cursors";
+    package = pkgs.capitaine-cursors-themed;
+    size = 32;
+  };
 
   programs.firefox.configPath = ".mozilla/firefox";
-
-  dconf.settings."org/gnome/desktop/interface".color-scheme =
-    if config.stylix.polarity == "dark" then "prefer-dark" else "default";
-
-  stylix.targets = {
-    gtk.enable = true;
-    neovim.enable = false;
-    tmux.enable = false;
-    firefox = {
-      enable = true;
-      profileNames = [ "default" ];
-    };
-  };
 }

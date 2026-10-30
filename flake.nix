@@ -15,7 +15,10 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     niri.url = "github:sodiboo/niri-flake";
-    stylix.url = "github:danth/stylix";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +31,6 @@
     darwin,
     home-manager,
     niri,
-    stylix,
     ...
   }@inputs:
     let overlays = [
@@ -136,7 +138,6 @@
       modules = [
         { nixpkgs.overlays = overlays; }
         niri.nixosModules.niri
-        stylix.nixosModules.stylix
         ./modules/nix-core.nix
         ./modules/nixos/desktop-configuration.nix
         ./modules/nixos/vm-configuration.nix
@@ -176,7 +177,6 @@
       modules = [
         { nixpkgs.overlays = overlays; }
         niri.nixosModules.niri
-        stylix.nixosModules.stylix
         ./modules/nix-core.nix
         ./modules/nixos/desktop-configuration.nix
         ./modules/nixos/vm-configuration.nix
@@ -215,7 +215,6 @@
       modules = [
         { nixpkgs.overlays = overlays; }
         niri.nixosModules.niri
-        stylix.nixosModules.stylix
         ./modules/nix-core.nix
         ./modules/nixos/desktop-configuration.nix
         ./hosts/vyas/linux/configuration.nix

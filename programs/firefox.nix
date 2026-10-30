@@ -1,4 +1,4 @@
-{ lib, pkgs, system, ...}: {
+{ pkgs, system, ...}: {
   programs.firefox = {
     enable = true;
 
