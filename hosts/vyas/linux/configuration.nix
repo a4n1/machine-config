@@ -13,5 +13,17 @@
   networking.networkmanager.enable = true;
   users.users.${system.username}.extraGroups = [ "networkmanager" ];
 
+  security.rtkit.enable = true;
+  services.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
+
   system.stateVersion = "24.05";
 }
