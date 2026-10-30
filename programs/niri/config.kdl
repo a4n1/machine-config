@@ -15,6 +15,11 @@ output "Virtual-1" {
     transform "normal"
 }
 
+cursor {
+    xcursor-theme "Capitaine Cursors"
+    xcursor-size 32
+}
+
 layout {
     gaps 24
     center-focused-column "always"

@@ -9,6 +9,8 @@
 
   services.ssh-agent.enable = true;
 
+  home.pointerCursor.enable = true;
+
   stylix.targets = {
     neovim.enable = false;
     tmux.enable = false;
