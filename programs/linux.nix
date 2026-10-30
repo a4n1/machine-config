@@ -1,4 +1,4 @@
-{ ... }: {
+{ config, ... }: {
   imports = [
     ./niri
     ./wpaperd.nix
@@ -11,9 +11,18 @@
 
   home.pointerCursor.enable = true;
 
+  programs.firefox.configPath = ".mozilla/firefox";
+
+  dconf.settings."org/gnome/desktop/interface".color-scheme =
+    if config.stylix.polarity == "dark" then "prefer-dark" else "default";
+
   stylix.targets = {
+    gtk.enable = true;
     neovim.enable = false;
     tmux.enable = false;
-    firefox.enable = true;
+    firefox = {
+      enable = true;
+      profileNames = [ "default" ];
+    };
   };
 }
