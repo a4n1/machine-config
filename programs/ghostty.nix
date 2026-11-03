@@ -5,6 +5,7 @@
       font-family = menlo
       title = " "
       shell-integration = none
+      app-notifications = no-clipboard-copy
       macos-titlebar-style = tabs
       window-padding-x = 12
       window-padding-y = 8
